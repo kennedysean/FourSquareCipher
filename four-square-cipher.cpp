@@ -145,10 +145,12 @@ int main() {
 		cout << "Input: ";
 		cin >> answer;
 	}
-	cout << "Enter Keyword 1 (lowercase): ";
+	cout << "Enter Keyword 1: ";
 	cin >> keyword1;
-	cout << "Enter Keyword 2 (lowercase): ";
+	keyword1 = clean_string(keyword1);
+	cout << "Enter Keyword 2: ";
 	cin >> keyword2;
+	keyword2 = clean_string(keyword2);
 	if (answer == "1") {
 		answer = "";
 		cout << "Enter name of text file to be encoded: ";
@@ -165,9 +167,14 @@ int main() {
 			message=oss.str();
 			string encoded_message = encode(message, keyword1, keyword2);
 			ofstream new_file;
-			new_file.open("encryption.txt");
+			cout << "\nInput desired name of the new encrypted text file (without '.txt'): ";
+			string file_name;
+			cin >> file_name;
+			file_name = file_name + ".txt";
+			new_file.open(file_name);
 			new_file << encoded_message;
 			new_file.close();
+			cout << "Encrypted text file has been created.";
 		}
 	}
 	else if (answer == "2") {
@@ -186,9 +193,14 @@ int main() {
 			message=oss.str();
 			string decoded_message = decode(message, keyword1, keyword2);
 			ofstream new_file;
-			new_file.open("decryption.txt");
+			cout << "\nInput desired name of the new decrypted text file (without '.txt'): ";
+			string file_name;
+			cin >> file_name;
+			file_name = file_name + ".txt";
+			new_file.open(file_name);
 			new_file << decoded_message;
 			new_file.close();
+			cout << "Decrypted text file has been created.";
 		}
 	}
 }
